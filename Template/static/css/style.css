@@ -1,0 +1,163 @@
+/* ===============================
+   GLOBAL
+================================ */
+
+body {
+    background-color: #f5f7fa;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.text-gold {
+    color: #FFB921;
+}
+
+
+/* ===============================
+   HEADER
+================================ */
+
+.app-header {
+    background-color: #0047AC !important;
+    color: #ffffff !important;
+}
+
+.app-title {
+    margin: 0;
+    font-weight: 700;
+    color: #ffb921;
+}
+
+.user-info {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+
+/* ===============================
+   NAVBAR
+================================ */
+
+.app-navbar {
+    background-color: #ffffff !important;
+    border-bottom: 3px solid #FFB921;
+}
+
+.app-nav-brand {
+    font-weight: 700;
+    color: #0047AC !important;
+}
+
+.app-nav-link {
+    color: #0047AC !important;
+    font-weight: 500;
+}
+
+.app-nav-link:hover {
+    color: #1497D4 !important;
+}
+
+.logout-link {
+    color: #dc3545 !important;
+    font-weight: 600;
+}
+
+.logout-link:hover {
+    color: #b02a37 !important;
+}
+
+
+/* ===============================
+   BUTTONS
+================================ */
+
+.btn-primary {
+    background-color: #0047AC !important;
+    border-color: #0047AC !important;
+}
+
+.btn-primary:hover {
+    background-color: #1497D4 !important;
+    border-color: #1497D4 !important;
+}
+
+.btn-outline-primary {
+    color: #0047AC !important;
+    border-color: #0047AC !important;
+}
+
+.btn-outline-primary:hover {
+    background-color: #0047AC !important;
+    color: #ffffff !important;
+}
+
+.btn-gold {
+    background-color: #FFB921;
+    color: #000;
+    border: none;
+}
+
+.btn-gold:hover {
+    background-color: #e6a91c;
+    color: #000;
+}
+
+
+/* ===============================
+   DASHBOARD / TABLES
+================================ */
+
+.scroll-box {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.table td,
+.table th {
+    vertical-align: middle;
+}
+
+
+/* ===============================
+   ACCENT COLORS
+================================ */
+
+.text-accent {
+    color: #1497D4;
+}
+
+.bg-accent {
+    background-color: #1497D4;
+}
+
+.bg-gold {
+    background-color: #FFB921;
+}
+
+/* Sticky container */
+.app-sticky {
+    z-index: 1030; /* above content, below modals */
+}
+
+/* Optional shadow when scrolling */
+.app-header {
+    background-color: #0047AC;
+    color: #ffffff;
+}
+
+.app-navbar {
+    background-color: #ffffff;
+    border-bottom: 3px solid #FFB921;
+}
+.image-box {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 6px;
+    background-color: #f8f9fa;
+}
+
+.image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

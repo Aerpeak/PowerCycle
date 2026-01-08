@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Become a Seller{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <h2 class="mb-3 text-center">Seller Registration</h2>
+
+                <p class="text-muted text-center mb-4">
+                    By becoming a seller, you can list and sell your second-hand items.
+                </p>
+
+                <form method="POST">
+
+                    <div class="form-check mb-4">
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="agreeSeller"
+                            required
+                        >
+                        <label class="form-check-label" for="agreeSeller">
+                            I agree to become a seller
+                        </label>
+                    </div >
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary w-100 mb-2"
+                    >
+                        Confirm
+                    </button>
+
+                    <div>
+                        <a href="{{ url_for('my_listings') }}" class="btn btn-outline-secondary w-100">
+                            Cancel
+                        </a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

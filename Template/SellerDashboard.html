@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}Seller Dashboard{% endblock %}
+
+{% block content %}
+
+<style>
+    .scroll-box {
+        max-height: 200px;
+        overflow-y: auto;
+    }
+</style>
+
+<h2 class="mb-4">Seller Dashboard</h2>
+
+<!-- SUMMARY -->
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card text-center shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Pending</h5>
+                <h3 class="text-warning">{{ pending_count }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card text-center shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Completed</h5>
+                <h3 class="text-success">{{ completed_count }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card text-center shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Cancelled</h5>
+                <h3 class="text-danger">{{ cancelled_count }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TRANSACTIONS -->
+<div class="row">
+
+    <!-- PENDING -->
+    <div class="col-md-4">
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-warning text-dark">
+                Pending Transactions
+            </div>
+
+            <div class="card-body scroll-box">
+                {% if pending_orders %}
+                    {% for order in pending_orders %}
+                        <p class="mb-2">
+                            <strong>{{ order.ListingTitle }}</strong><br>
+                            Buyer: {{ order.FirstName }} {{ order.LastName }}<br>
+                            Quantity: {{ order.Quantity }}<br>
+                            Ordered on: {{ order.Created_at }}
+                        </p>
+                        <hr>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted">No pending transactions.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- COMPLETED -->
+    <div class="col-md-4">
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-success text-white">
+                Completed Transactions
+            </div>
+
+            <div class="card-body scroll-box">
+                {% if completed_orders %}
+                    {% for order in completed_orders %}
+                        <p class="mb-2">
+                            <strong>{{ order.ListingTitle }}</strong><br>
+                            Buyer: {{ order.FirstName }} {{ order.LastName }}<br>
+                            Quantity: {{ order.Quantity }}<br>
+                            Completed on: {{ order.Updated_at }}
+                        </p>
+                        <hr>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted">No completed transactions.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- CANCELLED -->
+    <div class="col-md-4">
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-danger text-white">
+                Cancelled Transactions
+            </div>
+
+            <div class="card-body scroll-box">
+                {% if cancelled_orders %}
+                    {% for order in cancelled_orders %}
+                        <p class="mb-2">
+                            <strong>{{ order.ListingTitle }}</strong><br>
+                            Buyer: {{ order.FirstName }} {{ order.LastName }}<br>
+                            Quantity: {{ order.Quantity }}<br>
+                            Cancelled on: {{ order.Updated_at }}
+                        </p>
+                        <hr>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted">No cancelled transactions.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}My Orders{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">My Orders</h2>
+
+{% if orders %}
+<div class="table-responsive">
+    <table class="table table-bordered table-hover align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>Order ID</th>
+                <th>Item</th>
+                <th>Order Quantity</th>
+                <th>Seller</th>
+                <th>Price</th>
+                <th>Date</th>
+                <th>Transaction Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for order in orders %}
+            <tr>
+                <td>{{ order.OrderID }}</td>
+                <td>{{ order.ListingTitle }}</td>
+                <td>{{ order.Quantity }}</td>
+                <td>{{ order.FirstName }} {{ order.LastName }}</td>
+                <td>₱{{ order.Price }}</td>
+                <td>{{ order.Created_at }}</td>
+
+                <td>
+                    <strong>{{ order.TransactionStatus }}</strong>
+                </td>
+
+                <td>
+                 {% if order.TransactionStatus == 'Pending' and not order.BuyerConfirmed %}                                                    <!--Only allow cancellation if still pending and not confirmed -->
+                        <form
+                            method="POST"
+                            action="{{ url_for('cancel_order', order_id=order.OrderID) }}"
+                        >
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                Cancel Order
+                            </button>
+                        </form>
+                    {% else %}
+                        <span class="text-muted">—</span>
+                    {% endif %}
+
+                    {% if order.TransactionStatus == 'Pending' and not order.BuyerConfirmed %}
+                        <form
+                            method="POST"
+                            action="{{ url_for('buyer_confirm', order_id=order.OrderID) }}"
+                            class="mt-2"
+                        >
+                            <button type="submit" class="btn btn-success btn-sm w-100 ">
+                                Confirm Receipt
+                            </button>
+                        </form>
+                    {% endif %}
+
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+    <div class="alert alert-info">
+        You have no orders yet.
+    </div>
+{% endif %}
+
+{% endblock %}

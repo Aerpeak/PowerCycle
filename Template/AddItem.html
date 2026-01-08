@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+{% block title %}Add Listing{% endblock %}
+
+{% block content %}
+
+<div class="sticky-top mb-4" style="top: 140px;">
+    <h2 class="mb-0">Add New Listing</h2>
+</div>
+
+
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <form method="POST" enctype="multipart/form-data">
+
+                    <!-- Item Title -->
+                    <div class="mb-3">
+                        <label class="form-label">Item Title</label>
+                        <input
+                            type="text"
+                            name="title"
+                            class="form-control"
+                            required
+                        >
+                    </div>
+
+                    <!-- Item Images -->
+                    <div class="mb-3">
+                        <label class="form-label">Item Images</label>
+                        <input
+                            type="file"
+                            name="images[]"
+                            class="form-control"
+                            multiple
+                            accept="image/*"
+                            required
+                        >
+                    </div>
+
+                    <!-- Item Quantity -->
+                    <div class="mb-3">
+                        <label class="form-label">Item Quantity</label>
+                        <input
+                            type="number"
+                            name="item_count"
+                            class="form-control"
+                            min="1"
+                            value="1"
+                            required
+                        >
+                    </div>
+
+                    <!-- Category -->
+                    <div class="mb-3">
+                        <label class="form-label">Category</label>
+                        <select name="category_id" class="form-select" required>
+                            {% for cat in categories %}
+                                <option value="{{ cat.CategoryID }}">
+                                    {{ cat.CategoryName }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Condition -->
+                    <div class="mb-3">
+                        <label class="form-label d-block">Condition</label>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio"
+                                   name="condition" value="Brand New" required>
+                            <label class="form-check-label">Brand New</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio"
+                                   name="condition" value="Like New">
+                            <label class="form-check-label">Like New</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio"
+                                   name="condition" value="Good">
+                            <label class="form-check-label">Good</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio"
+                                   name="condition" value="Fair">
+                            <label class="form-check-label">Fair</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio"
+                                   name="condition" value="For Parts / Not Working">
+                            <label class="form-check-label">
+                                For Parts / Not Working
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Location -->
+                    <div class="mb-3">
+                        <label class="form-label">Location</label>
+                        <input
+                            type="text"
+                            name="location"
+                            class="form-control"
+                            placeholder="City / Area (e.g. Quezon City)"
+                            required
+                        >
+                    </div>
+
+                    <!-- Price -->
+                    <div class="mb-3">
+                        <label class="form-label">Price</label>
+                        <input
+                            type="number"
+                            name="price"
+                            step="0.01"
+                            class="form-control"
+                            required
+                        >
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-4">
+                        <label class="form-label">Description</label>
+                        <textarea
+                            name="description"
+                            class="form-control"
+                            rows="4"
+                            required
+                        ></textarea>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-primary">
+                            Post Listing
+                        </button>
+
+                        <a href="{{ url_for('my_listings') }}" class="btn btn-outline-secondary">
+                            Cancel
+                        </a>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

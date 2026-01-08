@@ -1,0 +1,59 @@
+{% extends "base_admin.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">Admin Dashboard</h2>
+
+<div class="row g-4 mb-4">
+
+    <!-- TOTAL USERS -->
+    <div class="col-md-3">
+        <div class="card shadow-sm text-center">
+            <div class="card-body">
+                <h6 class="text-muted">Total Users</h6>
+                <h3 class="fw-bold">{{ total_users }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- SELLERS -->
+    <div class="col-md-3">
+        <div class="card shadow-sm text-center">
+            <div class="card-body">
+                <h6 class="text-muted">Sellers</h6>
+                <h3 class="fw-bold text-primary">{{ sellers }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- BUYERS -->
+    <div class="col-md-3">
+        <div class="card shadow-sm text-center">
+            <div class="card-body">
+                <h6 class="text-muted">Buyers</h6>
+                <h3 class="fw-bold text-success">{{ buyers }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- LISTINGS -->
+    <div class="col-md-3">
+        <div class="card shadow-sm text-center">
+            <div class="card-body">
+                <h6 class="text-muted">Total Listings</h6>
+                <h3 class="fw-bold text-warning">{{ listings }}</h3>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- <div class="d-flex justify-content-end">
+    <a href="{{ url_for('admin_users') }}" class="btn btn-primary">
+        Manage Users
+    </a>
+</div> -->
+
+{% endblock %}

@@ -1,0 +1,124 @@
+{% extends "base_admin.html" %}
+
+{% block title %}Seller Listings{% endblock %}
+
+{% block content %}
+
+<div class="d-flex align-items-center mb-4">
+    <h2 class="mb-0">Seller Listings</h2>
+
+    <a href="{{ url_for('admin_users') }}" class="btn btn-outline-secondary ms-auto">
+        Back to Users
+    </a>
+</div>
+
+<!-- SEARCH BAR -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+    <form method="GET" class="d-flex gap-2 w-100">
+        <input
+            type="text"
+            name="q"
+            class="form-control"
+            placeholder="Search title, description, location, condition..."
+            value="{{ search }}"
+        >
+
+        <button type="submit" class="btn btn-primary">
+            Search
+        </button>
+
+        {% if search %}
+            <a href="{{ request.path }}" class="btn btn-outline-secondary">
+                Clear
+            </a>
+        {% endif %}
+    </form>
+
+</div>
+
+
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover align-middle">
+
+        <thead class="table-light">
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Location</th>
+                <th>Condition</th>
+                <th class="text-center">Qty</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for l in listings %}
+            <tr>
+
+                <td>
+                    <strong>{{ l.ListingTitle }}</strong><br>
+                </td>
+
+                <td>                
+                    <small class="text-muted">
+                        {{ l.ListingDescription[:80] }}
+                        {% if l.ListingDescription|length > 80 %}…{% endif %}
+                    </small>
+                  </td>
+
+                <td>{{ l.Location }}</td>
+
+                <td>{{ l.Condition }}</td>
+
+                <td class="text-center">
+                    {{ l.item_count }}
+                </td>
+
+                <td>
+                    ₱{{ l.Price }}
+                </td>
+
+                <!-- STATUS -->
+                <td class="d-flex">
+                    {% if l.isCurrent == 0 %}
+                        <span class="badge bg-secondary w-100">Deleted</span>
+                    {% elif l.item_count == 0 %}
+                        <span class="badge bg-warning text-dark w-100">Sold Out</span>
+                    {% else %}
+                        <span class="badge bg-success w-100">Active</span>
+                    {% endif %}
+                </td>
+
+                  <!-- ACTION -->
+                  <td class="p-2">
+                      {% if l.isCurrent == 1 and l.item_count > 0 %}
+                          <form
+                              method="POST"
+                              action="{{ url_for('admin_delete_listing', listing_id=l.ListingID) }}"
+                              onsubmit="return confirm('Delete listing?');"
+                              class="w-100"
+                          >
+                              <button
+                                  type="submit"
+                                  class="btn btn-outline-danger btn-sm w-100"
+                              >
+                                  Delete
+                              </button>
+                          </form>
+                      {% else %}
+                          <span class="text-muted">—</span>
+                      {% endif %}
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+</div>
+
+{% endblock %}

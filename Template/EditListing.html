@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Listing{% endblock %}
+
+{% block content %}
+
+<div class="sticky-top mb-4" style="top: 140px;">
+    <h2 class="mb-0">Edit Listing</h2>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <form method="POST">
+
+                    <!-- TITLE -->
+                    <div class="mb-3">
+                        <label class="form-label">Title</label>
+                        <input
+                            type="text"
+                            name="title"
+                            class="form-control"
+                            value="{{ item.ListingTitle }}"
+                            required
+                        >
+                    </div>
+
+                    <!-- PRICE -->
+                    <div class="mb-3">
+                        <label class="form-label">Price</label>
+                        <input
+                            type="number"
+                            name="price"
+                            step="0.01"
+                            class="form-control"
+                            value="{{ item.Price }}"
+                            required
+                        >
+                    </div>
+
+                    <!-- CATEGORY -->
+                    <div class="mb-3">
+                        <label class="form-label">Category</label>
+                        <select name="category_id" class="form-select" required>
+                            {% for cat in categories %}
+                                <option
+                                    value="{{ cat.CategoryID }}"
+                                    {% if cat.CategoryID == item.CategoryID %}selected{% endif %}
+                                >
+                                    {{ cat.CategoryName }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- CONDITION -->
+                    <div class="mb-3">
+                        <label class="form-label">Condition</label>
+                        <input
+                            type="text"
+                            name="condition"
+                            class="form-control"
+                            value="{{ item.Condition }}"
+                            required
+                        >
+                    </div>
+
+                    <!-- ITEM QUANTITY -->
+                    <div class="mb-3">
+                        <label class="form-label">Item Quantity</label>
+                        <input
+                            type="number"
+                            name="item_count"
+                            min="1"
+                            class="form-control"
+                            value="{{ item.item_count }}"
+                            required
+                        >
+                    </div>
+
+                    <!-- LOCATION -->
+                    <div class="mb-3">
+                        <label class="form-label">Location</label>
+                        <input
+                            type="text"
+                            name="location"
+                            class="form-control"
+                            value="{{ item.Location }}"
+                            required
+                        >
+                    </div>
+
+                    <!-- DESCRIPTION -->
+                    <div class="mb-4">
+                        <label class="form-label">Description</label>
+                        <textarea
+                            name="description"
+                            class="form-control"
+                            rows="4"
+                            required
+                        >{{ item.ListingDescription }}</textarea>
+                    </div>
+
+                    <!-- ACTIONS -->
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-primary">
+                            Save Changes
+                        </button>
+
+                        <a href="{{ url_for('my_listings') }}" class="btn btn-outline-secondary">
+                            Cancel
+                        </a>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

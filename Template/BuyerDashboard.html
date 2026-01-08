@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}Buyer Dashboard{% endblock %}
+
+{% block content %}
+
+<style>
+    .scroll-box {
+        max-height: 200px;
+        overflow-y: auto;
+    }
+</style>
+
+<h2 class="mb-4">Buyer Dashboard</h2>
+
+<!-- SUMMARY CARDS -->
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card text-center shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Pending</h5>
+                <h3 class="text-warning">{{ pending_count }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card text-center shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Completed</h5>
+                <h3 class="text-success">{{ completed_count }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card text-center shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Cancelled</h5>
+                <h3 class="text-danger">{{ cancelled_count }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ORDERS GRID -->
+<div class="row">
+
+    <!-- PENDING ORDERS -->
+    <div class="col-md-4">
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-warning text-dark">
+                Pending Orders
+            </div>
+            <div class="card-body scroll-box">
+                {% if pending_orders %}
+                    {% for order in pending_orders %}
+                        <p class="mb-2">
+                            <strong>{{ order.ListingTitle }}</strong><br>
+                            Quantity: {{ order.Quantity }}<br>
+                            Ordered on: {{ order.Created_at }}
+                        </p>
+                        <hr>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted">No pending orders.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- COMPLETED ORDERS -->
+    <div class="col-md-4">
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-success text-white">
+                Completed Orders
+            </div>
+            <div class="card-body scroll-box">
+                {% if completed_orders %}
+                    {% for order in completed_orders %}
+                        <p class="mb-2">
+                            <strong>{{ order.ListingTitle }}</strong><br>
+                            Quantity: {{ order.Quantity }}<br>
+                            Completed on: {{ order.Updated_at }}
+                        </p>
+                        <hr>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted">No completed orders.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- CANCELLED ORDERS -->
+    <div class="col-md-4">
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-danger text-white">
+                Cancelled Orders
+            </div>
+            <div class="card-body scroll-box">
+                {% if cancelled_orders %}
+                    {% for order in cancelled_orders %}
+                        <p class="mb-2">
+                            <strong>{{ order.ListingTitle }}</strong><br>
+                            Quantity: {{ order.Quantity }}<br>
+                            Cancelled on: {{ order.Updated_at }}
+                        </p>
+                        <hr>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted">No cancelled orders.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

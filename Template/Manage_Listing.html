@@ -1,0 +1,173 @@
+{% extends "base_admin.html" %}
+
+{% block title %}Manage Listings{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">Listings</h2>
+
+<!-- SEARCH BAR -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+    <form method="GET" class="d-flex gap-2 w-100">
+        <input
+            type="text"
+            name="q"
+            class="form-control"
+            placeholder="Search title, seller, location, condition..."
+            value="{{ search }}"
+        >
+
+        <button type="submit" class="btn btn-primary">
+            Search
+        </button>
+
+        {% if search %}
+            <a href="{{ url_for('admin_listing') }}" class="btn btn-outline-secondary">
+                Clear
+            </a>
+        {% endif %}
+    </form>
+
+</div>
+
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover align-middle">
+
+        <thead class="table-light">
+            <tr>
+                <th>Title</th>
+                <th>Seller</th>
+                <th>Location</th>
+                <th>Condition</th>
+                <th>Description</th>
+                <th>Qty</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th class="text-center">Actions</th>
+            </tr>
+        </thead>
+
+
+        <tbody>
+            {% for l in listings %}
+            <tr>
+
+                <td>{{ l.ListingTitle }}</td>
+
+                <td>
+                    {{ l.FirstName }} {{ l.LastName }}
+                </td>
+
+                <td>{{ l.Location }}</td>
+
+                <td>{{ l.Condition }}</td>
+
+                <td>{{l.ListingDescription}}</td>
+
+                <td class="text-center">
+                    {{ l.item_count }}
+                </td>
+
+                <td>
+                    ₱{{ l.Price }}
+                </td>
+
+                <td class="d-flex">
+                    {% if l.isCurrent == 0 %}
+                        <span class="badge bg-secondary w-100">Deleted</span>
+                    {% elif l.item_count == 0 %}
+                        <span class="badge bg-warning text-dark w-100">Sold Out</span>
+                    {% else %}
+                        <span class="badge bg-success w-100">Active</span>
+                    {% endif %}
+                </td>
+
+                <td class="p-2">
+                    <div class="d-flex flex-row gap-2 w-100">
+
+                        <button
+                            class="btn btn-outline-primary btn-sm w-100"
+                            data-bs-toggle="modal"
+                            data-bs-target="#adminViewListingModal"
+                            data-url="{{ url_for('view_listing', listing_id=l.ListingID) }}"
+                        >
+                            View
+                        </button>
+
+
+                        <form
+                            method="POST"
+                            action="{{ url_for('admin_delete_listing', listing_id=l.ListingID) }}"
+                            onsubmit="return confirm('Delete this listing?');"
+                            class="w-100"
+                        >
+                            <button
+                                type="submit"
+                                class="btn btn-outline-danger btn-sm w-100"
+                            >
+                                Delete
+                            </button>
+                        </form>
+
+                    </div>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+</div>
+
+<!-- ================= ADMIN VIEW LISTING MODAL ================= -->
+<div
+    class="modal fade"
+    id="adminViewListingModal"
+    tabindex="-1"
+    aria-hidden="true"
+>
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Listing Preview</h5>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                ></button>
+            </div>
+
+            <div class="modal-body p-0">
+                <iframe
+                    id="adminViewListingFrame"
+                    style="width:100%; height:80vh; border:none;"
+                ></iframe>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!--  Script for modal shocasing listing details yung nalipad -->
+<script>
+    const adminViewModal = document.getElementById('adminViewListingModal');
+    const adminIframe = document.getElementById('adminViewListingFrame');
+
+    adminViewModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const url = button.getAttribute('data-url');
+        adminIframe.src = url;
+    });
+
+    adminViewModal.addEventListener('hidden.bs.modal', function () {
+        adminIframe.src = '';
+    });
+</script>
+
+
+
+{% endblock %}
